@@ -14,7 +14,7 @@ bool cmp(const dot &a, const dot &b) {
     if (a.y != b.y) { //y좌표가 다르면 y좌표가 증가하는 순서로
         return a.y < b.y;
     } else { //y좌표가 같으면 x좌표가 증가하는 순서로
-        return a.x < b.y;
+        return a.x < b.x;
     }
 }
 
