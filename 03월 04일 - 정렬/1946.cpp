@@ -27,7 +27,7 @@ int main() {
     //테스크 케이스 개수만큼 반복
     //[리뷰] t 사용 x -> while문 사용
 //    for (int i = 0; i < t; i++) {}
-    while (t > 0) {
+    while (t-- > 0) {
         cin >> n;
 //        arr.assign(n, {0});
         arr.assign(n, {0, 0});
@@ -51,7 +51,8 @@ int main() {
         //출력
         cout << hired << '\n';
 
-        t--; //1개의 테스크 케이스 처리 완료
+        //[리뷰] 증감 연산자 조건문에 합쳐 코드 줄이기
+//        t--; //1개의 테스크 케이스 처리 완료
     }
 
     return 0;
