@@ -4,14 +4,17 @@
 
 using namespace std;
 
-vector<int> a, b; //정수 배열 A, B
+//[리뷰] main()에서만 사용(다른 함수에서 x) -> main에서 지역변수로 선언하기
+//vector<int> a, b; //정수 배열 A, B
 
 int main() {
     int n;
+
     //입력
     cin >> n;
-    a.assign(n, 0);
-    b.assign(n, 0);
+//    a.assign(n, 0);
+//    b.assign(n, 0);
+    vector<int> a(n, 0), b(n, 0); //정수 배열 A, B 선언
     for (int i = 0; i < n; i++) {
         cin >> a[i];
     }
