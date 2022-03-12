@@ -1,7 +1,8 @@
 //2776)암기왕
 
 #include <iostream>
-#include <set>
+//#include <set>
+#include <unordered_set>
 
 using namespace std;
 
@@ -17,7 +18,8 @@ int main() {
     while (t--) { //테스크 케이스 개수만큼 반복
         //수첩1의 입력
         cin >> n;
-        set<int> note; //수첩1의 정수를 검색을 위해 set에 삽입
+//        set<int> note; //수첩1의 정수를 검색을 위해 set에 삽입
+        unordered_set<int> note; //수첩1의 정수를 unorderd_set에 삽입
         while (n--) {
             cin >> input;
             note.insert(input);
@@ -30,13 +32,14 @@ int main() {
             //출력
             //set에 있으면 1, 없으면 0 -> 원소의 개수 찾기
             //로 하면 시간초과. 찾아보니 count랑 find 시간복잡도도 같던데 이유가 뭘까요..
-//            cout << note.count(input) << '\n';
+            //unorderd_set으로 바꿨어요
+            cout << note.count(input) << '\n';
 
-            auto iter = note.find(input);
-            if (iter != note.end()) {
-                cout << 1 << '\n';
-            } else
-                cout << 0 << '\n';
+//            auto iter = note.find(input);
+//            if (iter != note.end()) {
+//                cout << 1 << '\n';
+//            } else
+//                cout << 0 << '\n';
         }
     }
     return 0;
