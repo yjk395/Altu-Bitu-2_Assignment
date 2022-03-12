@@ -31,7 +31,7 @@ int main() {
             cin >> input; //입력받은 수첩2의 정수
             //출력
             //set에 있으면 1, 없으면 0 -> 원소의 개수 찾기
-            //로 하면 시간초과. 찾아보니 count랑 find 시간복잡도도 같던데 이유가 뭘까요..
+            //로 하면 시간초과. 이유가 뭘까요..
             //unorderd_set으로 바꿨어요
             cout << note.count(input) << '\n';
 
