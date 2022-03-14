@@ -1,4 +1,4 @@
-//9357)패션왕 신해빈
+//9375)패션왕 신해빈
 
 #include <iostream>
 #include <map>
@@ -17,13 +17,15 @@ int main() {
             string name, type; //의상의 이름, 종류
             cin >> name >> type;
 
-            //개수 세기(20291 문제와 동일)
-            auto iter = clothes.find(type);
-            if (iter == clothes.end()) { //새로운 의상 종류이면
-                clothes[type] = 1; //map에 삽입, 의상 개수는 1
-            } else { //이미 map에 저장된 의상 종류이면
-                (iter->second)++; //의상 개수 1 증가
-            }
+//            //개수 세기(20291 문제와 동일)
+//            auto iter = clothes.find(type);
+//            if (iter == clothes.end()) { //새로운 의상 종류이면
+//                clothes[type] = 1; //map에 삽입, 의상 개수는 1
+//            } else { //이미 map에 저장된 의상 종류이면
+//                (iter->second)++; //의상 개수 1 증가
+//            }
+            //[리뷰]
+            clothes[type]++;
         }
 
         //연산
