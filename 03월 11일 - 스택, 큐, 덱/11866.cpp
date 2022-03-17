@@ -30,7 +30,7 @@ void josephusPr(int n, int k) {
 }
 
 int main() {
-    int n, k; //k번째 사람 제거, n명의 사람. (n, k)-오세푸스 순열
+    int n, k; //k번째 사람 제거, n명의 사람. (n, k)-요세푸스 순열
     //입력
     cin >> n >> k;
 
