@@ -18,7 +18,9 @@ int meanCalc() {
     for (auto iter: num_cnt) {
         result += iter.first * iter.second; //숫자와 빈도수 곱하여 더함
     }
-    return round(result / (float) num_size);
+    //[리뷰] 실수 표기는 double형 사용(정밀함)
+//    return round(result / (float) num_size);
+    return round(result / (double) num_size);
 }
 
 //중간값
