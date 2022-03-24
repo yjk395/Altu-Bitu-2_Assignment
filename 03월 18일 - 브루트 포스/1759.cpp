@@ -15,7 +15,7 @@ void makePw(string &str, vector<bool> &temp, vector<char> &alp) {
     for (int i = 0; i < temp.size(); i++) {
         if (temp[i]) {
             str.push_back(alp[i]);
-            cout<<alp[i]<<' '; //디버깅
+//            cout<<alp[i]<<' '; //디버깅
         }
     }
 }
@@ -31,17 +31,22 @@ vector<string> findPossiblePw(int l) {
 
     int v_size = vowel.size(); //l-2가 가능한 모음 개수보다 큰 경우 있음 나머지 개수만큼은 비어버림. 둘 중 작은 것으로 고름
 
-    //l == c이면 왜 무한루프?
+    //모음, 자음 모두 선택해야 하는 경우..
     for (int i = 1; i <= min(v_size, l - 2); i++) { //모음을 i개 선택
 //        fill(v_temp.begin(), v_temp.begin() + i, true); //임시벡터 수정
-        fill(c_temp.begin(), c_temp.end() - (l - i), false); //모음은 선택 개수 점점 줄어듦->false를 증가시킴
         v_temp[i-1] = true; //임시 벡터 수정
 
+        //남은 자음 수로 암호 길이 충족 안 되는 경우 모음 수 늘려야 함
+        if(c_temp.size() < l-i) continue;
+
+        if(c_temp.size() > l-i) //모든 자음 선택해야 하는 경우는 false로 바꾸지 않음
+            fill(c_temp.begin(), c_temp.end() - (l - i), false); //모음은 선택 개수 점점 줄어듦->false를 증가시킴
+
         //디버깅
-        for(bool b:c_temp){
-            cout<<b<<' ';
-        }
-        cout<<'\n';
+//        for(bool b:c_temp){
+//            cout<<b<<' ';
+//        }
+//        cout<<'\n';
 
         do {
             makePw(str, v_temp, vowel); //선택된 모음을 string에 추가
@@ -52,7 +57,7 @@ vector<string> findPossiblePw(int l) {
                 sort(str.begin(), str.end()); //암호 사전식 정렬
                 answer.push_back(str); //결과 벡터에 삽입
                 str = str_tmp; //반복 위해 초기화
-                cout<<'\n'; //디버깅
+//                cout<<'\n'; //디버깅
             } while (next_permutation(c_temp.begin(), c_temp.end()));
             str = ""; //반복 위해 초기화
         } while (prev_permutation(v_temp.begin(), v_temp.end()));
