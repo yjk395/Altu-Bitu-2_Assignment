@@ -31,14 +31,11 @@ vector<string> findPossiblePw(int l) {
 
     int v_size = vowel.size(); //l-2가 가능한 모음 개수보다 큰 경우 있음 나머지 개수만큼은 비어버림. 둘 중 작은 것으로 고름
 
-    //모음, 자음 모두 선택해야 하는 경우..
     for (int i = 1; i <= min(v_size, l - 2); i++) { //모음을 i개 선택
 //        fill(v_temp.begin(), v_temp.begin() + i, true); //임시벡터 수정
-        v_temp[i-1] = true; //임시 벡터 수정
-
-        //남은 자음 수로 암호 길이 충족 안 되는 경우 모음 수 늘려야 함
-        if(c_temp.size() < l-i) continue;
-
+        //임시 벡터 수정
+        v_temp[i-1] = true;
+        if(c_temp.size() < l-i) continue; //남은 자음 수로 암호 길이 충족 안 되는 경우 모음 수 늘려야 함
         if(c_temp.size() > l-i) //모든 자음 선택해야 하는 경우는 false로 바꾸지 않음
             fill(c_temp.begin(), c_temp.end() - (l - i), false); //모음은 선택 개수 점점 줄어듦->false를 증가시킴
 
