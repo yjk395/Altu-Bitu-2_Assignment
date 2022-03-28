@@ -19,6 +19,7 @@ bool isGroup(string str) {
     }
     return true;
 }
+//힌트 확인해보니 set삽입연산 하는 것보단 크기 26인 bool타입 벡터로 확인하는 게 나았을 것 같긴 하네요..
 
 int main() {
     int n; //단어의 개수

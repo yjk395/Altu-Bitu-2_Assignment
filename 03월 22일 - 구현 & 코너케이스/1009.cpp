@@ -10,7 +10,7 @@ using namespace std;
 int main() {
     //거듭제곱 1의 자리 숫자 주기
     vector<vector<int>> v(10);
-    v[0] = {10}; //10번 컴퓨터
+    v[0] = {10}; //10번 컴퓨터 출력해야 함
     v[1] = {1};
     v[2] = {6, 2, 4, 8};
     v[3] = {1, 3, 9, 7};
@@ -25,7 +25,7 @@ int main() {
     cin >> t;
     while (t--) {
         cin >> a >> b;
-        cout << v[a % 10][b % (v[a % 10].size())] << '\n';
+        cout << v[a % 10][b % (v[a % 10].size())] << '\n'; //지수를 주기로 나눈 나머지를 인덱스로
     }
 
     return 0;
