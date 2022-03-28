@@ -7,7 +7,7 @@
 
 using namespace std;
 
-//두 사람의 카드덱, 그라운드 맵으로 묶기, 인덱스 0이면 도도, 1이면 수연
+//두 사람의 카드덱, 그라운드 맵으로 묶기, 키값 0이면 도도, 1이면 수연
 map<int, deque<int>> m_deque;
 map<int, deque<int>> m_ground;
 vector<string> name = {"do", "su"};
@@ -15,7 +15,7 @@ vector<string> name = {"do", "su"};
 
 //카드덱 맨 위에 위치한 카드를 그라운드 위에 내려놓는 함수
 void flipCard(int a) {
-    m_ground[a].push_back(m_deque[a].back()); //카드덱 뒤의 원소를 그라운드에 삽입
+    m_ground[a].push_back(m_deque[a].back()); //카드덱 맨 위의 원소를 그라운드에 삽입
     m_deque[a].pop_back(); //카드덱 맨 위의 원소를 삭제
 }
 
