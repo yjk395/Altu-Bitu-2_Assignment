@@ -47,9 +47,9 @@ int main() {
     cin >> sum >> sub >> mul >> divs;
     //연산자 벡터에 삽입
     op.insert(op.begin(), sum, '+');
-    op.insert(op.begin() + sum, sub, '-');
-    op.insert(op.begin() + sum + sub, mul, '*');
-    op.insert(op.begin() + sum + mul, divs, '/');
+    op.insert(op.begin(), sub, '-');
+    op.insert(op.begin(), mul, '*');
+    op.insert(op.begin(), divs, '/');
     sort(op.begin(), op.end()); //정렬
 
     vector<int> answer = func(n);
