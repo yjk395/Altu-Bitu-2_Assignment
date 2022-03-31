@@ -1,9 +1,5 @@
 //
 
-//check 배열엔 도시 들르면 true 체크
-//0으로 갈 수 없는 경우는 백트래킹이니 안 감
-//모든 도시 시작점으로 n번 반복하며 찾고..
-
 #include <iostream>
 #include <vector>
 
