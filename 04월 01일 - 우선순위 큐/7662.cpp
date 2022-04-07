@@ -19,7 +19,7 @@ void insertQ(int n) {
 
 //개수가 0인 값 삭제하여 큐 업데이트
 //최소힙 전달이 안 되는데 어떻게 둘 다 받을 수 있게 하나요?
-//지금 상태에선 인자 타입을 priority_queue<int, vector<int>, greater<int>> 로 두어야 돌아가더라고요..
+//지금 상태에선 타입을 priority_queue<int, vector<int>, greater<int>> 로 바꿔야 돌아가더라고요..
 void updateQ(priority_queue<int> &q){
     while (!q.empty() && m[q.top()] == 0) {
         q.pop();
