@@ -57,7 +57,7 @@ int main() {
         }
 
         //출력 - front에 먼저 들어간 순, back에 마지막으로 들어간 순
-        //앗 앞에서 커서 뒷 부분 덱의 삽입 위치를 바꾸고 보니 여기는 함수화하기 애매할까요...?
+        //앗 앞에서 커서 뒷 부분 덱의 삽입 위치를 바꾸고 보니 여기는 함수화하기 애매할까요..
         while (!pw_front_cur.empty()) {
             cout << pw_front_cur.front();
             pw_front_cur.pop_front();
