@@ -1,35 +1,40 @@
 //크게 만들기
 
-//시간 초과
-
 #include <iostream>
+#include <deque>
 
 using namespace std;
 
 //변환한 숫자를 반환
-//시간 초과
 string solution(int n, int k, string num) {
-    int idx = 0;
-    while (k) { //k개 수 모두 지워 k가 0이 될 때까지
-        if (num[idx] < num[idx + 1]) { //뒤 숫자가 더 크면 앞을 삭제
-            num.erase(idx, 1);
-            k--;
-        } else if (num[idx] > num[idx + 1]) { //앞 숫자가 더 크면 앞을 삭제
-            num.erase(idx + 1, 1);
-            k--;
-        } else { //같으면 두 숫자 모두 남기고 다음 숫자로
-            idx += 2;
+    deque<char> deq;
+    string answer;
+
+    for (int i = 0; i < n; i++) {
+        //삽입할 수보다 작은 원소 전부 삭제, 크거나 같은 수 나올 때까지(삽입할 수보다 작을 동안)
+        while (!deq.empty() && k && deq.back() < num[i]) { //비어있지 않고, 삭제할 수 0보다 클 때
+            deq.pop_back();
+            k--; //삭제한 수 카운트, k가 0이 되면 나머지 수는 삽입만 함
         }
+
+        //덱에 삽입
+        deq.push_back(num[i]);
     }
 
-    return num;
+    while (k && !deq.empty()) { //삭제해야 할 숫자 개수 남아있으면 pop
+        deq.pop_back();
+        k--;
+    }
+
+    //먼저 삽입된 수부터 나와야 하므로 스택 말고 덱 사용
+    while (!deq.empty()) {
+        answer.push_back(deq.front());
+        deq.pop_front();
+    }
+    return answer;
 }
 
 int main() {
-    ios_base :: sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-
     int n, k; //n자리 숫자, k개 지우기
     string num; //입력받은 숫자
     cin >> n >> k >> num;
