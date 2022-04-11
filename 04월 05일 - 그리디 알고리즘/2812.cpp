@@ -11,8 +11,8 @@ string solution(int n, int k, string num) {
     string answer;
 
     for (int i = 0; i < n; i++) {
-        //삽입할 수보다 작은 원소 전부 삭제, 크거나 같은 수 나올 때까지(삽입할 수보다 작을 동안)
-        while (!deq.empty() && k && deq.back() < num[i]) { //비어있지 않고, 삭제할 수 0보다 클 때
+        //i번째 수보다 앞에 있는 작은 수는 전부 삭제 -> 덱에서 크거나 같은 수 나올 때까지(삽입할 수보다 작을 동안)
+        while (!deq.empty() && k && deq.back() < num[i]) { //비어있지 않고, 삭제할 개수 0보다 클 때
             deq.pop_back();
             k--; //삭제한 수 카운트, k가 0이 되면 나머지 수는 삽입만 함
         }
@@ -21,7 +21,7 @@ string solution(int n, int k, string num) {
         deq.push_back(num[i]);
     }
 
-    while (k && !deq.empty()) { //삭제해야 할 숫자 개수 남아있으면 pop
+    while (k && !deq.empty()) { //삭제해야 할 숫자 개수 남아있으면 개수 맞춰 뒷 부분 삭제
         deq.pop_back();
         k--;
     }
@@ -37,8 +37,10 @@ string solution(int n, int k, string num) {
 int main() {
     int n, k; //n자리 숫자, k개 지우기
     string num; //입력받은 숫자
+    //입력
     cin >> n >> k >> num;
 
+    //연산 및 출력
     cout << solution(n, k, num);
 
     return 0;
