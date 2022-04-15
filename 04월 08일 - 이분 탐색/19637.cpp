@@ -1,35 +1,35 @@
 //IF문 좀 대신 써줘
 
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#include <map>
 
 using namespace std;
 
 int main() {
-    int n, m; //칭호, 캐릭터의 개수
+    //입출력 속도 향상
+    ios_base :: sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    int n, m, c; //칭호, 캐릭터의 개수, 전투력
+    string str; //칭호 이름
     cin >> n >> m;
-    vector<string> title(n);
-    vector<int> bound(n + 1);
-    bound[0] = -1; //전투력은 0부터, 더 작은 값 첫 번째 인덱스에 저장
-    vector<int> character(m);
+
+    //[리뷰] 상한값과 그때의 칭호를 map에 저장
+    map<int, string> title; //전투력 상한값, 칭호 이름
+
     for (int i = 0; i < n; i++) { //칭호의 이름, 전투력 상한값 입력
-        cin >> title[i] >> bound[i + 1];
-    }
-    for (int i = 0; i < m; i++) { //캐릭터의 전투력 입력
-        cin >> character[i];
-    }
-
-    sort(character.begin(), character.end()); //오름차순 정렬
-
-    //출력
-    for (int i = 0; i < n; i++) {
-//        cout<<bound[i]<<' '<<bound[i+1]<<' ';
-        int cnt = upper_bound(character.begin(), character.end(), bound[i + 1]) -
-                  upper_bound(character.begin(), character.end(), bound[i]);
-        for (int j = 0; j < cnt; j++) {
-            cout << title[i] << '\n';
+        cin >> str >> c;
+        //칭호가 여러 개인 경우 가장 먼저 입력된 칭호 하나만 출력 -> 나중에 들어온 중복은 무시
+        if(!title.count(c)){
+            title[c] = str; //map에 저장, 상한값으로 이분 탐색
         }
+    }
+
+    for (int i = 0; i < m; i++) { //캐릭터의 전투력 입력받아 맞는 칭호 출력
+        cin >> c;
+        //[리뷰] 맵, 셋에 자체적으로 이분탐색 함수
+        cout<<title.lower_bound(c)->second<<'\n';
     }
 
     return 0;
