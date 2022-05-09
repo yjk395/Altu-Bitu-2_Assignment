@@ -7,7 +7,7 @@
 using namespace std;
 
 typedef pair<int, int> ci;
-vector<vector<char>> field; //필드 저장
+vector<vector<char>> field(6, vector<char>(12)); //필드 저장
 
 //4개 이상 모인 같은 색 뿌요 터뜨리기
 void popPuyo(vector<ci> &puyo_pop_list) {
@@ -19,9 +19,13 @@ void popPuyo(vector<ci> &puyo_pop_list) {
 //뿌요 아래로 떨어지는 연산
 void fallPuyo() {
     for (int i = 0; i < 6; i++) {
+        int fall_point = -1; //뿌요가 떨어질 y좌표
         for (int j = 0; j < 11; j++) { //제일 위 이전 줄까지
-            if (field[i][j] == '.' && field[i][j + 1] != '.') { //뿌요 아래 빈칸이 있으면
-                swap(field[i][j], field[i][j + 1]); //교환
+            if (field[i][j] == '.' && fall_point == -1) { //뿌요 떨어질 포인트 업데이트
+                fall_point = j;
+            } else if(field[i][j] != '.' && fall_point != -1) { //뿌요 등장하고 떨어진다면 교환
+                swap(field[i][fall_point], field[i][j]);
+                fall_point++; //떨어진 뿌요 윗칸에 다음 뿌요 떨어짐
             }
         }
     }
@@ -52,11 +56,13 @@ bool bfs() {
             while (!q.empty()) { //큐 빌 때까지
                 auto[y, x] = q.front(); //큐 첫 번째 원소의 좌표 가져오기
                 puyo_pop_list.push_back({y, x}); //좌표 저장
+
                 q.pop(); //큐에서 원소 제거
 
                 for (int k = 0; k < 4; k++) { //상하좌우 탐색
-                    int new_y = y + dy[i];
-                    int new_x = x + dx[i];
+                    int new_y = y + dy[k];
+                    int new_x = x + dx[k];
+
                     //새 좌표의 범위, 색, 방문여부 확인
                     if (new_y >= 0 && new_y < 6 && new_x >= 0 && new_x < 12 && !visited[new_y][new_x] &&
                         field[new_y][new_x] == puyo_color) {
@@ -71,7 +77,7 @@ bool bfs() {
                 popPuyo(puyo_pop_list);
                 is_poped = true;
             }
-            puyo_pop_list.clear(); //뿌요 좌표 리스트 초기화
+            puyo_pop_list.clear(); //뿌요 좌표 리스트 초기화, size 0으로
         }
     }
 
@@ -86,7 +92,7 @@ bool bfs() {
 //연쇄 횟수 구하기
 int solution() {
     int chain_cnt = 0; //연쇄 횟수
-    while (bfs()) { //false가 나올 때까지 반복
+    while (bfs()) { //false가 나올 때까지(터지는 뿌요 없을 때까지) 반복
         chain_cnt++;
     }
 
@@ -94,21 +100,18 @@ int solution() {
 }
 
 int main() {
-    vector<string> v(12);
     //입력
     for (int i = 0; i < 12; i++) {
-        cin >> v[i];
-    }
+        string s;
+        cin >> s;
 
-    for (int i = 0; i < 6; i++) {
-        for (int j = 11; j >= 0; j--) {
-            field[i].push_back(v[j][i]);
+        for (int j = 0; j < 6; j++) {
+            field[j][11 - i] = s[j];
         }
     }
 
     //출력
-    cout << solution;
+    cout << solution();
 
     return 0;
 }
-
