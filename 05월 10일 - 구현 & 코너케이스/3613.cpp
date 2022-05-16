@@ -4,12 +4,14 @@
 
 using namespace std;
 
+const int DIFF = 'a'-'A'; //소문자와 대문자 아스키코드 차이, 32
+
 //C++ to Java
 string cToJava(string name) {
     for (int i = 0; i < name.length(); i++) {
         if (name[i] == '_') { //'_' 나오면
             name.erase(i, 1); //삭제
-            name[i] -= 32; //소문자를 대문자로
+            name[i] -= DIFF; //소문자를 대문자로
         }
     }
     return name;
@@ -19,7 +21,7 @@ string cToJava(string name) {
 string javaToC(string name) {
     for (int i = 0; i < name.length(); i++) {
         if (name[i] - 'A' >= 0 && name[i] - 'A' <= 25) { //대문자 나오면
-            name[i] += 32; //대문자를 소문자로
+            name[i] += DIFF; //대문자를 소문자로
             name.insert(i, "_"); //'_' 추가
             i++; //'_'추가했으니 i증가
         }
