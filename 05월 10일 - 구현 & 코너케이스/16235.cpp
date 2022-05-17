@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <queue>
+#include <tuple>
 
 using namespace std;
 
@@ -11,9 +13,9 @@ vector<vector<int>> ntr_addition; //각 칸에 추가되는 양분
 vector<vector<vector<int>>> trees; //각 칸에 있는 나무들의 나이
 
 //봄: 양분 먹고 나이 증가
-//[코드리뷰] 죽은 나무 목록 컨테이너에 저장, 리턴하기
-vector<vector<int>> spring(int &n) {
-    vector<vector<int>> dead_trees(n + 1, vector<int>(n + 1, 0)); //죽은 나무가 변한 양분 양 저장
+//[코드리뷰] 죽은 나무 목록을 컨테이너에 저장, 리턴하기
+queue<tuple<int, int, int>> spring(int &n) {
+    queue<tuple<int, int, int>> dead_trees; //죽은 나무 좌표와 변할 양분 저장
 
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n; j++) { //모든 칸 순회
@@ -21,9 +23,7 @@ vector<vector<int>> spring(int &n) {
 
             for (int k = 0; k < trees[i][j].size(); k++) { //그 칸의 모든 나무 순회
                 if (nutrient[i][j] < trees[i][j][k]) { //양분 부족
-//                    tries[i][j][k] = -trees[i][j][k]; //사망
-                    //죽은 나무 삭제, 따로 저장하여 반환
-                    dead_trees[i][j] += trees[i][j][k] / 2;
+                    dead_trees.push({i, j, trees[i][j][k] / 2}); //죽은 나무 정보 저장
                     trees[i][j].erase(trees[i][j].begin() + k); //나무 삭제
                     k--; //삭제했으니 인덱스 감소
                 } else {
@@ -38,11 +38,11 @@ vector<vector<int>> spring(int &n) {
 }
 
 //여름: 죽은 나무가 양분으로 변함
-void summer(int &n, vector<vector<int>> &dead_trees) {
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= n; j++) { //모든 칸 순회
-            nutrient[i][j] += dead_trees[i][j]; //각 칸에 양분 추가
-        }
+void summer(int &n, queue<tuple<int, int, int>> &dead_trees) {
+    while(!dead_trees.empty()){
+        auto tree = dead_trees.front();
+        nutrient[get<0>(tree)][get<1>(tree)] += get<2>(tree);
+        dead_trees.pop();
     }
 }
 
