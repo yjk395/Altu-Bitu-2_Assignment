@@ -20,7 +20,7 @@ void popPuyo(vector<ci> &puyo_pop_list) {
 void fallPuyo() {
     for (int i = 0; i < 6; i++) {
         int fall_point = -1; //뿌요가 떨어질 y좌표
-        for (int j = 0; j < 11; j++) { //제일 위 이전 줄까지
+        for (int j = 0; j < 12; j++) { //제일 윗 줄까지
             if (field[i][j] == '.' && fall_point == -1) { //뿌요 떨어질 포인트 업데이트
                 fall_point = j;
             } else if(field[i][j] != '.' && fall_point != -1) { //뿌요 등장하고 떨어진다면 교환
