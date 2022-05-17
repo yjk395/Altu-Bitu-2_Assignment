@@ -33,25 +33,24 @@ bool omokChecker(int x, int y, int color, int cnt, int dir) {
 }
 
 //브루트 포스
-//인덴테이션 이후 수정해볼 수 있으면 수정하겠습니다..ㅠㅠ
+//[코드리뷰] 바둑돌이 없는 경우를 continue
 bool bf(int &color, int &x, int &y) {
     for (int i = 1; i < 20; i++) {
         for (int j = 1; j < 20; j++) {
-            if (checkerboard[i][j]) { //바둑돌 있으면 탐색
-                //리턴값 true면 오목, 바둑돌 색과 좌표 출력, 방문한 방향은 탐색x
-                for (int k = 0; k < 4; k++) {
-                    if (!visited[i][j][k] && omokChecker(j, i, checkerboard[i][j], 1, k)) {
-                        //탐색하는 반대 방향 바둑돌 확인(육목 가능)
-                        if (i - dy[k] > 0 && i - dy[k] < 20 && j - dx[k] > 0 && j - dx[k] < 20 &&
-                            checkerboard[i - dy[k]][j - dx[k]] == checkerboard[i][j]) {
-                            continue;
-                        }
-                        color = checkerboard[i][j];
-                        x = i;
-                        y = j;
-                        return true;
-                    }
-                }
+            if (!checkerboard[i][j]) continue; //바둑돌 없으면 넘어감
+            //리턴값 true면 오목, 바둑돌 색과 좌표 출력, 방문한 방향은 탐색x
+            for (int k = 0; k < 4; k++) {
+                if (visited[i][j][k] || !omokChecker(j, i, checkerboard[i][j], 1, k)) continue;
+
+                //탐색하는 반대 방향 바둑돌 확인(육목 가능)
+                if (i - dy[k] > 0 && i - dy[k] < 20 && j - dx[k] > 0 && j - dx[k] < 20 &&
+                    checkerboard[i - dy[k]][j - dx[k]] == checkerboard[i][j])
+                    continue;
+
+                color = checkerboard[i][j];
+                x = i;
+                y = j;
+                return true;
             }
         }
     }

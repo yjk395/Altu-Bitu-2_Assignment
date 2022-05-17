@@ -34,7 +34,7 @@ int solution(vector<string> &words, int n) {
         }
 
         //개수 같으면 같은 구성, 하나 차이면 한 문자 더하거나 빼기, 둘 차이면 문자 바꾸기(=길이 동일)
-        if(diff==0||diff==1||(diff==2&&(words[i].length()==length))){
+        if(diff<=1||(diff==2&&(words[i].length()==length))){
             answer++;
         }
     }
