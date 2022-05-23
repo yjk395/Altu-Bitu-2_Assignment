@@ -1,7 +1,7 @@
 //양궁대회
 
 /*
- * 과녁을 맞추는 모든 경우
+ * 과녁을 맞히는 모든 경우
  * 11개짜리 bool 임시벡터로 모든 순열 구함, true일 때 내가 점수 획득
  * 점수 획득하는 과녁 수 1개~총 화살 개수인 n개, for 1부터 n까지
  * 이기지 못하거나 화살 모자라면 버림, 점수 차 max인 경우 찾기
@@ -40,7 +40,7 @@ bool isLowerScoreHit(vector<int> &ans, vector<int> &other) {
         if (ans[j] < other[j]) return false;
         if (ans[j] > other[j]) return true;
     }
-    return false; //전부 같으면 아예 동점인 상황이니 없겠지만..?
+    return false; //전부 같으면 아예 동점인 상황..? 오류뜨길래 추가
 }
 
 vector<int> solution(int n, vector<int> info) {
@@ -52,7 +52,7 @@ vector<int> solution(int n, vector<int> info) {
         fill(is_get_score.begin(), is_get_score.begin() + i, true);
         do {
             //화살 개수 체크
-            vector<int> arrow(11, 0);
+            vector<int> arrow(11, 0); //scoreCalc에서 만든 화살 상태 벡터 저장
             int res = scoreCalc(n, is_get_score, arrow, info); //점수 차 혹은 -1(불가능)
 
             if (res >= max) {
@@ -70,9 +70,7 @@ vector<int> solution(int n, vector<int> info) {
     //화살상태 후보 중 낮은 점수 많이 맞힌 경우 찾아 반환
     vector<int> answer = myArrows[0];
     for (int i = 1; i < myArrows.size(); i++) {
-        if (!isLowerScoreHit(answer, myArrows[i])) {
-            answer = myArrows[i];
-        }
+        if (!isLowerScoreHit(answer, myArrows[i])) answer = myArrows[i]; //다른 벡터가 낮은 점수 더 맞혔으면 answer 업데이트
     }
     return answer;
 }
