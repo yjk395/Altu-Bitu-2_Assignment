@@ -10,19 +10,29 @@ struct Node{
     Node *right;
 };
 //트리에 삽입하는 함수
+//[샘플코드] 함수 자료형 node, 대소비교 후 왼쪽or오른쪽 자식노드에 재귀호출, NULL이면 그 자리에 새 노드 생성
 void insertBst(int n, Node *root) {
-    Node *node = new Node();
-    node->data = n;
-    node->left = node->right = NULL;
+    //[코드리뷰] 새로운 node 매번 삽입x -> 항상 node 만들면 메모리 낭비
+//    Node *node = new Node();
+//    node->data = n;
+//    node->left = node->right = NULL;
 
     if (n < root->data) {
         if (root->left == NULL) {
+            Node *node = new Node();
+            node->data = n;
+            node->left = node->right = NULL;
+
             root->left = node;
             return;
         }
         insertBst(n, root->left);
     } else {
         if (root->right == NULL) {
+            Node *node = new Node();
+            node->data = n;
+            node->left = node->right = NULL;
+
             root->right = node;
             return;
         }
