@@ -29,7 +29,7 @@ void countSubtreeNodes(int cur) {
     }
 }
 
-//[코드리뷰] 메모이제이션 활용하여 dfs 탐색 (샘플코드 참조했습니다)
+//[코드리뷰] 메모이제이션 활용하여 dfs 탐색 (샘플코드 참고했습니다ㅠ)
 int treeDp(int cur) {
     if (node_size[cur] != -1) return node_size[cur]; //이미 탐색(=부모)
     node_size[cur] = 0; //여기서 현재 정점의 dp값 0으로 설정 -> 자식 노드만 탐색(부모 노드는 0 리턴받음)
@@ -41,7 +41,7 @@ int treeDp(int cur) {
 }
 
 int main() {
-    // 입출력 속도 향상
+    //입출력 속도 향상
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
