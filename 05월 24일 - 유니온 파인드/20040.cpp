@@ -43,7 +43,7 @@ int main() {
         cin >> x >> y;
         if (unionInput(x, y)) {
             answer = i;
-            break;
+            break; //여기서 입력을 다 안 끝내고 break해버려도 괜찮은 걸까요..?
         }
     }
 
