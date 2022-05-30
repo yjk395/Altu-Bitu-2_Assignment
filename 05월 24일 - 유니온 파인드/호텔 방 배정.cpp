@@ -7,7 +7,7 @@
 using namespace std;
 
 vector<long long> room_number;
-unordered_map<long long, long long> sold_room; //parent배열에서 값을 다음으로 나올 빈 방으로
+unordered_map<long long, long long> sold_room; //parent 값을 다음으로 나올 빈 방으로, 사용되지 않는 방 많으니 unordered_map 사용
 
 //배정할 방을 반환
 long long findNextRoom(long long n) {
