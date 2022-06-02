@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<vector<vector<bool>>> wall; //벽면 상태. wall[x][y][a] = true -> 구조물 존재
+vector<vector<vector<bool>>> wall; //벽면 상태. wall[y][x][a] = true -> 구조물 존재
 
 //기둥 삭제 시 체크할 구조물. 위 기둥, 위 양옆 보
 vector<vector<int>> ch_p = {{0,  +1, 0},
