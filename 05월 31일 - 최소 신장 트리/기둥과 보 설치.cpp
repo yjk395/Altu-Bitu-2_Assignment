@@ -8,11 +8,11 @@ using namespace std;
 vector<vector<vector<bool>>> wall; //벽면 상태. wall[y][x][a] = true -> 구조물 존재
 
 //기둥 삭제 시 체크할 구조물. 위 기둥, 위 양옆 보
-vector<vector<int>> ch_p = {{0,  +1, 0},
+vector<vector<int>> ch_post = {{0,  +1, 0},
                             {0,  +1, 1},
                             {-1, +1, 1}};
 //보 삭제 시 체크할 구조물. 양옆 기둥, 양옆 보
-vector<vector<int>> ch_b = {{0,  0, 0},
+vector<vector<int>> ch_beam = {{0,  0, 0},
                             {+1, 0, 0},
                             {-1, 0, 1},
                             {+1, 0, 1}};
@@ -37,22 +37,22 @@ bool canBuild(int x, int y, int a) {
 }
 
 //구조물 삭제 가능 여부 확인
-bool canDelete(int x, int y, int a, int n) {
+bool canDelete(int x, int y, int a) {
     wall[y][x][a] = false; //삭제 가정 후 주변에 있는 구조물 설치 가능한지 체크(남은 구조물이 규칙 만족하는지)
     bool is_valid = true;
 
     if (!a) { //a==0, 기둥 삭제
         for (int i = 0; i < 3; i++) {
-            int dx = x + ch_p[i][0], dy = y + ch_p[i][1];
-            if (isThereStructure(dx, dy, ch_p[i][2]) && !canBuild(dx, dy, ch_p[i][2])) {
+            int dx = x + ch_post[i][0], dy = y + ch_post[i][1];
+            if (isThereStructure(dx, dy, ch_post[i][2]) && !canBuild(dx, dy, ch_post[i][2])) {
                 is_valid = false; //주변에 구조물이 있는데 설치 불가능하면 주어진 구조물은 삭제 불가능
                 break;
             }
         }
     } else { //a==1, 보 삭제
         for (int i = 0; i < 4; i++) {
-            int dx = x + ch_b[i][0], dy = y + ch_b[i][1];
-            if (isThereStructure(dx, dy, ch_b[i][2]) && !canBuild(dx, dy, ch_b[i][2])) {
+            int dx = x + ch_beam[i][0], dy = y + ch_beam[i][1];
+            if (isThereStructure(dx, dy, ch_beam[i][2]) && !canBuild(dx, dy, ch_beam[i][2])) {
                 is_valid = false;
                 break;
             }
@@ -69,7 +69,7 @@ vector<vector<int>> solution(int n, vector<vector<int>> build_frame) {
     for (auto work: build_frame) { //작업 순서대로 수행
         //work[0]: x좌표, work[1]: y좌표, work[2]: 구조물 종류, work[3]: 작업 종류
         //조건 만족하지 않으면 작업 무시. work[3]==1은 설치, 0은 삭제 가능 여부 체크
-        if (!(work[3] ? canBuild(work[0], work[1], work[2]) : canDelete(work[0], work[1], work[2], n))) continue;
+        if (!(work[3] ? canBuild(work[0], work[1], work[2]) : canDelete(work[0], work[1], work[2]))) continue;
 
         //작업 수행
         wall[work[1]][work[0]][work[2]] = work[3];
